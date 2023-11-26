@@ -48,16 +48,61 @@ public class TutoringServicesImpl extends UnicastRemoteObject implements Tutorin
     }
     @Override
     public boolean bookSession(int sessionId, int studentId) {
-        for (Session session : sessions) {
-            if (session.getSessionId() == sessionId) {
-                if (session.addStudent(studentId)) {
-                    return true;
-                } else {
-                    waitlist.addToWaitlist(sessionId, studentId);
-                    return false; // Session is full, student added to waitlist
-                }
+        //get the nb of places in the session
+        String sql = "select nbPlaces from Session where sessionId = ?";
+        int nbPlaces = 0;
+        try (Connection conn = DriverManager.getConnection(SQLITE_CONNECTION_STRING);
+
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, sessionId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                nbPlaces = rs.getInt("nbPlaces");
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return false; // Session not found
+        //count the number of students in the session
+        String sql2 = "select count(*) as number from SessionStudent where sessionId = ?";
+        int nbStudents = 0;
+        try (Connection conn = DriverManager.getConnection(SQLITE_CONNECTION_STRING);
+
+             PreparedStatement pstmt = conn.prepareStatement(sql2)) {
+            pstmt.setInt(1, sessionId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                nbStudents = rs.getInt("number");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //check if the session is full
+        if (nbStudents < nbPlaces) {
+            //add the student to the session
+            String sql3 = "INSERT INTO SessionStudent (sessionId, studentId) VALUES (?, ?)";
+            try (Connection conn = DriverManager.getConnection(SQLITE_CONNECTION_STRING);
+
+                 PreparedStatement pstmt = conn.prepareStatement(sql3)) {
+                pstmt.setInt(1, sessionId);
+                pstmt.setInt(2, studentId);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return true;
+        } else {
+            //add the student to the waitlist
+            String sql4 = "INSERT INTO Waitlist (sessionId, studentId) VALUES (?, ?)";
+            try (Connection conn = DriverManager.getConnection(SQLITE_CONNECTION_STRING);
+
+                 PreparedStatement pstmt = conn.prepareStatement(sql4)) {
+                pstmt.setInt(1, sessionId);
+                pstmt.setInt(2, studentId);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
     }
 }
