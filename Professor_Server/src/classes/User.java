@@ -7,6 +7,10 @@ public class User implements Serializable {
     protected String lastName;
     protected int age;
     protected String email;
+    protected String phoneNumber;
+    protected String password;
+    protected String bio;
+    protected Role role;
 
     public int getUserId() {
         return userId;
@@ -80,9 +84,5 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    protected String phoneNumber;
-    protected String password;
-    protected String bio;
-    protected Role role;
 
 }
