@@ -48,7 +48,7 @@
   <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link text-white" href="../pages/sessions.html">
+        <a class="nav-link text-white" href="sessions.jsp?id=<%= URLEncoder.encode(user.getEmail(),"UTF-8") %>">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="material-icons opacity-10">table_view</i>
           </div>
@@ -56,7 +56,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white " href="../pages/billing.html">
+        <a class="nav-link text-white " href="billing.html">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="material-icons opacity-10">receipt_long</i>
           </div>
@@ -67,7 +67,7 @@
         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white active bg-gradient-primary" href="../pages/profile.html">
+        <a class="nav-link text-white active bg-gradient-primary" href="profile.html">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="material-icons opacity-10">person</i>
           </div>
