@@ -7,7 +7,7 @@ CREATE TABLE User (
                      phoneNumber VARCHAR  not null,
                      password    VARCHAR  not null,
                      bio         VARCHAR  not null,
-                     Role TEXT NOT NULL CHECK (Role IN ('Student', 'Professor'))
+                     role TEXT NOT NULL CHECK (role IN ('Student', 'Professor'))
 );
 CREATE TABLE professor (
 
