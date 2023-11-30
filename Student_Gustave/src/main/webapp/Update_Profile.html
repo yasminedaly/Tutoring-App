@@ -1,0 +1,120 @@
+<!--
+=========================================================
+* Material Dashboard 2 - v3.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard
+* Copyright 2023 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/resources/img/apple-icon.png">
+
+  <title>
+    Gustave Tutoring App, Edit Profile
+  </title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="/resources/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="/resources/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="/resources/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+  <!-- Nepcha Analytics (nepcha.com) -->
+  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+</head>
+
+<body class="">
+  <div class="container position-sticky z-index-sticky top-0">
+    <div class="row">
+      <div class="col-12">
+        <!-- Navbar -->
+
+      </div>
+    </div>
+  </div>
+  <main class="main-content  mt-0">
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
+              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('/resources/img/illustrations/illustration-signup.jpg'); background-size: cover;">
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+              <div class="card card-plain">
+                <div class="card-header">
+                  <h4 class="font-weight-bolder">Edit Profile</h4>
+                  <p class="mb-0">Enter your information </p>
+                </div>
+                <div class="card-body">
+                  <form action="/UpdateUser" method="post">
+                    <!-- First Name input -->
+                    <div class="input-group input-group-outline mb-3">
+                      <input type="text" class="form-control" placeholder="First Name" name="firstName" required>
+                    </div>
+
+                    <!-- Last Name input -->
+                    <div class="input-group input-group-outline mb-3">
+                      <input type="text" class="form-control" placeholder="Last Name" name="lastName" required>
+                    </div>
+                    <!-- Age input -->
+                    <div class="input-group input-group-outline mb-3">
+                      <input type="number" class="form-control" placeholder="Age" name="age" required min="0">
+                    </div>
+                    <!-- Email input with pattern for validation -->
+                    <div class="input-group input-group-outline mb-3">
+                      <input type="email" class="form-control" placeholder="Email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                    </div>
+                    <!-- Phone Number input with pattern for validation -->
+                    <div class="input-group input-group-outline mb-3">
+                      <input type="tel" class="form-control" placeholder="Phone number (e.g., 01 23 45 67 89)" name="phoneNumber" required pattern="0[1-9](?:[ .-]?[0-9]{2}){4}">
+                    </div>
+                    <!-- Bio input -->
+                    <div class="input-group input-group-outline mb-3">
+                      <textarea class="form-control" placeholder="Bio" name="bio" required></textarea>
+                    </div>
+                      <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" href="profile.html"">Save</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!--   Core JS Files   -->
+  <script src="/resources/js/core/popper.min.js"></script>
+  <script src="/resources/js/core/bootstrap.min.js"></script>
+  <script src="/resources/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="/resources/js/plugins/smooth-scrollbar.min.js"></script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+</body>
+
+</html>
