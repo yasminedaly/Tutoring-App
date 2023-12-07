@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="TutoringApp">
+    <output-path>$PROJECT_DIR$/out/artifacts/TutoringApp</output-path>
+    <root id="root" />
+  </artifact>
+</component>

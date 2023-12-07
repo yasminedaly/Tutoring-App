@@ -1,35 +1,46 @@
 package classes;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Session implements Serializable {
     private int sessionId;
-    private Subject subject; // Using classes.Subject enum
+    private Subject subject; // Using Subject enum
     private float rate;
     private String sessionDate;
     private Set<Integer> studentIds = new HashSet<>(); // Students booked for the session
     private int nbPlaces;
-    private Waitlist waitlist; // Reference to the classes.Waitlist class
+    private Waitlist waitlist;
 
-    public Session(int sessionId, Subject subject, float rate, String sessionDate, int nbPlaces, Waitlist waitlist) {
+    public int getTutorId() {
+        return tutorId;
+    }
+
+    public void setTutorId(int tutorId) {
+        this.tutorId = tutorId;
+    }
+
+    private int tutorId;
+
+    public Session() {
+    }
+
+    public  Session(int sessionId, Subject subject, float rate, String sessionDate, int nbPlaces) {
         this.sessionId = sessionId;
         this.subject = subject;
         this.rate = rate;
         this.sessionDate = sessionDate;
         this.nbPlaces = nbPlaces;
-        this.waitlist = waitlist; // Initialize the classes.Waitlist reference
     }
 
     public boolean addStudent(int studentId) {
         if (studentIds.size() < nbPlaces) {
             studentIds.add(studentId);
-            return true; // classes.Student added successfully
+            return true; // Student added successfully
         } else {
-            // classes.Session is full, add to waitlist using the classes.Waitlist reference
+            // Session is full, add to waitlist using the Waitlist reference
             waitlist.addToWaitlist(sessionId, studentId);
-            return false; // classes.Student added to waitlist
+            return false; // Student added to waitlist
         }
     }
 

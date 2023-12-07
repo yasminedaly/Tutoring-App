@@ -2,6 +2,9 @@
 
 <%@ page import="classes.User" %>
 <%@ page import="java.net.URLEncoder" %>
+<%@ page import="classes.Session" %>
+<%@ page import="java.net.URLDecoder" %>
+<%=application.getAttribute("Email")%>>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,6 +33,14 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
+<%
+    String encodedEmail = request.getParameter("email");
+    String email = "";
+    if (encodedEmail != null && !encodedEmail.isEmpty()) {
+        email = java.net.URLDecoder.decode(encodedEmail, "UTF-8");
+    }
+%>
+
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -60,7 +71,7 @@
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white " href="profile.html">
+                <a class="nav-link text-white " href="profile.jsp">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">person</i>
                     </div>
@@ -117,8 +128,6 @@
                                     <option value="GEOGRAPHY">Geography</option>
                                 </select>
                             </div>
-
-
                             <!-- Rate input -->
                             <div class="input-group input-group-outline mb-3">
                                 <input type="number" step="0.01" class="form-control" placeholder="Rate" name="rate" required>
@@ -133,12 +142,12 @@
                             <div class="input-group input-group-outline mb-3">
                                 <input type="number" class="form-control" placeholder="Number of Places" name="nbPlaces" required>
                             </div>
+                            <% String Email = application.getAttribute("Email").toString();%>
 
                             <!-- Hidden field for tutorId -->
-                            <input type="hidden" name="tutorId" value="your-user-id-here">
-
+                            <input type="hidden" name="email" value="<%=Email %>" />
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary btn-lg btn-block">Create Session</button>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block" href="sessions.jsp?email=<%= Email %>">Create Session</button>
                             </div>
                         </form>
                     </div>

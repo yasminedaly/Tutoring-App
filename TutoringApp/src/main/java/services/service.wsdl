@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<definitions 
+	name="fxtop" 
+	targetNamespace="urn:FxtopAPI" 
+	xmlns:tns="urn:FxtopAPI" 
+	xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/'
+	xmlns:xsd='http://www.w3.org/2001/XMLSchema'
+	xmlns:soapenc='http://schemas.xmlsoap.org/soap/encoding/'
+	xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'
+	xmlns='http://schemas.xmlsoap.org/wsdl/'>
+ <documentation>
+    This document describes the Fxtop services, for more information, please contact us at webmaster@fxtop.com see more on https://fxtop.com/en/developpers.php#ws
+  </documentation>
+<types>
+<xsd:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:FxtopAPI">
+<xsd:complexType name="ConvertResult">
+<xsd:all>
+<xsd:element name="ResultAmount" type="xsd:string" />
+<xsd:element name="C2" type="xsd:string" />
+<xsd:element name="OriginalAmount" type="xsd:string" />
+<xsd:element name="C1" type="xsd:string" />
+<xsd:element name="DD" type="xsd:string" />
+<xsd:element name="MM" type="xsd:string" />
+<xsd:element name="YYYY" type="xsd:string" />
+<xsd:element name="ExchangeRate" type="xsd:string" />
+<xsd:element name="Comment" type="xsd:string" />
+</xsd:all>
+</xsd:complexType>
+<xsd:complexType name="CurrencyDescription">
+<xsd:all>
+<xsd:element name="Isocode" type="xsd:string" />
+<xsd:element name="Lang" type="xsd:string" />
+<xsd:element name="CountryDescription" type="xsd:string" />
+<xsd:element name="CurrencyLabel" type="xsd:string" />
+<xsd:element name="ModeC" type="xsd:string" />
+<xsd:element name="NbDec" type="xsd:string" />
+<xsd:element name="Comment" type="xsd:string" />
+</xsd:all>
+</xsd:complexType>
+</xsd:schema>
+</types>
+<message name="PastConvertRequest">
+<part name="OriginalAmount" type="xsd:string" />
+<part name="C1" type="xsd:string" />
+<part name="C2" type="xsd:string" />
+<part name="Date" type="xsd:string" />
+<part name="User" type="xsd:string" />
+<part name="Password" type="xsd:string" />
+</message>
+<message name="PastConvertResponse">
+<part name="Convert" type="tns:ConvertResult" />
+</message>
+<message name="DescCurrencyRequest">
+<part name="Lang" type="xsd:string" />
+<part name="Isocode" type="xsd:string" />
+</message>
+<message name="DescCurrencyResponse">
+<part name="CurrencyDescription" type="tns:CurrencyDescription" />
+</message>
+<message name="ListCurrenciesRequest">
+<part name="User" type="xsd:string" />
+<part name="Password" type="xsd:string" />
+</message>
+<message name="ListCurrenciesResponse">
+<part name="ListCurrenciesResponse" type="xsd:string" />
+</message>
+<portType name="FxtopServicesPortType">
+<operation name="Convert">
+      <documentation>Returns amount (OriginalAmount) converted from source currency (C1 is a 3 letters Iso Code) to destination currency (C2 is a 3 letters Iso Code) at a specific date (Date format DD/MM/YYYY) or today if Date parameter is left blank.  If User and Password are not provided, conversion will be performed with a date in 1999.</documentation>
+<input message="tns:PastConvertRequest" />
+<output message="tns:PastConvertResponse" />
+</operation>
+<operation name="DescCurrency">
+      <documentation>Returns description of a currency (Isocode defined by a 3 letter) in language Lang (supported languages : EN, FR, DE,ES, IT, PT, DK, SE, FI, NO, NL)</documentation>
+<input message="tns:DescCurrencyRequest" />
+<output message="tns:DescCurrencyResponse" />
+</operation>
+<operation name="ListCurrencies">
+      <documentation>Returns a string with list of ISO code of supported currencies (3 letters Iso codes like USD) separated by a slash, User and Password is optional and is not used yet</documentation>
+<input message="tns:ListCurrenciesRequest" />
+<output message="tns:ListCurrenciesResponse" />
+</operation>
+</portType>
+<binding name="FxtopServicesBinding" type="tns:FxtopServicesPortType">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="Convert">
+<soap:operation soapAction="Convert" />
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="DescCurrency">
+<soap:operation soapAction="DescCurrency" />
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="ListCurrencies">
+<soap:operation soapAction="ListCurrencies" />
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+</binding>
+<service name="FxtopServices">
+<documentation>
+    This document describes the Fxtop services, for more information, please contact us at webmaster@fxtop.com see more on https://fxtop.com/en/developpers.php#ws
+  </documentation>
+<port name="FxtopServicesPort" binding="tns:FxtopServicesBinding">
+<soap:address location="https://fxtop.com/dev/FxtopServices.php" />
+</port>
+</service>
+</definitions>

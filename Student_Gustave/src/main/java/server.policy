@@ -1,0 +1,5 @@
+grant {
+        // Permissions for RMI server
+        permission java.net.SocketPermission "127.0.0.1:1099", "listen, connect, resolve";
+        permission java.security.AllPermission;
+        };

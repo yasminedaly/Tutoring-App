@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="/resources/img/apple-icon.png">
   <link rel="icon" type="image/png" href="/resources/img/favicon.png">
   <title>
-    Gustave Tutoring App
+    Eiffel Tutoring Solutions
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -48,26 +48,22 @@
   <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link text-white" href="../pages/sessions.html">
+        <% if (user != null) { %>
+          <a class="nav-link text-white" href="<%=request.getContextPath()%>/ReadSessions?email=<%= URLEncoder.encode(user.getEmail(), "UTF-8") %>">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="material-icons opacity-10">table_view</i>
           </div>
           <span class="nav-link-text ms-1">Sessions</span>
         </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white " href="../pages/billing.html">
-          <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">receipt_long</i>
-          </div>
-          <span class="nav-link-text ms-1">Billing</span>
-        </a>
+        <% } else { %>
+        <!-- Handle case where user is null -->
+        <% } %>
       </li>
       <li class="nav-item mt-3">
         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white active bg-gradient-primary" href="../pages/profile.html">
+        <a class="nav-link text-white active bg-gradient-primary" href="profile.html">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="material-icons opacity-10">person</i>
           </div>

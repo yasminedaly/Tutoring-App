@@ -2,6 +2,9 @@
 
 <%@ page import="classes.User" %>
 <%@ page import="java.net.URLEncoder" %>
+<%@ page import="CRUD.User_Crud" %>
+
+
 <!-- Import statement for the User class -->
 <!DOCTYPE html>
 <html lang="en">
@@ -48,31 +51,19 @@
   <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link text-white" href="sessions.jsp?id=<%= URLEncoder.encode(user.getEmail(),"UTF-8") %>">
+        <% if (user != null) { %>
+        <a class="nav-link text-white" href="sessions.jsp?email=<%= URLEncoder.encode(user.getEmail(), "UTF-8") %>">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="material-icons opacity-10">table_view</i>
           </div>
           <span class="nav-link-text ms-1">Sessions</span>
         </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white " href="billing.html">
-          <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">receipt_long</i>
-          </div>
-          <span class="nav-link-text ms-1">Billing</span>
-        </a>
+        <% } else { %>
+        <!-- Handle case where user is null -->
+        <% } %>
       </li>
       <li class="nav-item mt-3">
         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white active bg-gradient-primary" href="profile.html">
-          <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">person</i>
-          </div>
-          <span class="nav-link-text ms-1">Profile</span>
-        </a>
       </li>
     </ul>
   </div>
@@ -93,7 +84,10 @@
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                <%= user.getFirstName() %> <%= user.getLastName() %>
+                <%
+                  application.setAttribute("Fullname",User_Crud.getTutorName(request.getParameter("email")));
+                %>
+               <%=application.getAttribute("Fullname")%>
               </h5>
 
             </div>
@@ -123,23 +117,47 @@
                 </div>
                 <div class="card-body p-3">
                   <p class="text-sm">
-                    <%= user.getBio() %>
+                    <%
+                      application.setAttribute("Bio",User_Crud.getTutorBio(request.getParameter("email")));
+                    %>
+                    <%= application.getAttribute("Bio") %>
                   </p>
                   <hr class="horizontal gray-light my-4">
                   <ul class="list-group">
-                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">First Name:</strong> &nbsp; <%= user.getFirstName() %></li>
-                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Last Name:</strong> &nbsp; <%= user.getLastName() %></li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; &nbsp;  <%= user.getPhoneNumber() %></li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp;  <%= user.getEmail() %></li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Age:</strong> &nbsp; <%= user.getAge() %></li>
+                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">First Name:</strong> &nbsp;
+                      <%
+                        application.setAttribute("Firstname",User_Crud.getTutorFirstName(request.getParameter("email")));
+                      %>
+                      <%= application.getAttribute("Firstname") %></li>
+                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Last Name:</strong> &nbsp;
+                      <%
+                        application.setAttribute("Firstname",User_Crud.getTutorFirstName(request.getParameter("email")));
+                      %>
+                      <%= application.getAttribute("Firstname") %></li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; &nbsp;
+                      <%
+                        application.setAttribute("mobile",User_Crud.getTutorPhoneNumber(request.getParameter("email")));
+                      %>
+                      <%= application.getAttribute("mobile") %></li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp;
+                      <%
+                        application.setAttribute("Email",request.getParameter("email"));
+                      %>
+                      <%= application.getAttribute("Email")
+                       %></li>
+
+                    </li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Age:</strong> &nbsp;
+                      <%
+                        application.setAttribute("age",User_Crud.getTutorAge(request.getParameter("email")));
+                      %>
+                        <%= application.getAttribute("age").toString() %></li>
+                      </li>
                   </ul>
+
                   <div class="text-center">
                     <p class="mt-4 text-sm text-center">
-
-                      <a href="Update_Profile.html?email=<%= URLEncoder.encode(user.getEmail(), "UTF-8") %>" class="text-primary text-gradient font-weight-bold">Edit</a>
-                      <%
-
-                      %>
+                      <a href="Update_Profile.html?email=<%=request.getParameter("email")%>" class="text-primary text-gradient font-weight-bold">Edit</a>
                     </p>
                   </div>
 

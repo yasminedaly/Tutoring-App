@@ -1,7 +1,10 @@
+<%@ page import="java.net.URLEncoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%@ page import="classes.User" %>
+<%@ page import="classes.Session" %>
 <%@ page import="java.net.URLEncoder" %>
+
+<%=application.getAttribute("email")%>>*
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,79 +12,60 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="/resources/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="/resources/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="${pageContext.request.contextPath}/resources/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/img/favicon.png">
   <title>
-    Gustave Tutoring App
+    Eiffel Tutoring Solutions
   </title>
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <!-- Nucleo Icons -->
-  <link href="/resources/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="/resources/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="${pageContext.request.contextPath}/resources/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="${pageContext.request.contextPath}/resources/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
-  <link id="pagestyle" href="/resources/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
+  <link id="pagestyle" href="${pageContext.request.contextPath}/resources/css/material-dashboard.css?v=3.1.0" rel="stylesheet" />
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
-
 <body class="g-sidenav-show  bg-gray-200">
+<%
+  String email = request.getParameter("email");
+  String encodedEmail = "";
+  if(email != null && !email.isEmpty()) {
+    encodedEmail = URLEncoder.encode(email, "UTF-8");
+  }
+%>
+<form action="/CreateSession" method="post">
+  <div class="d-flex align-items-center justify-content-between">
+    <a type="submit" class="btn btn-outline-primary btn-sm mb-0" href="newSession.jsp?email=<%= encodedEmail %>">Create new session</a>
+  </div>
+</form>
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
   <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
     <a class="navbar-brand m-0" href="https://www.univ-gustave-eiffel.fr" target="_blank">
-      <img src="/resources/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+      <img src="${pageContext.request.contextPath}/resources/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
     </a>
   </div>
   <hr class="horizontal light mt-0 mb-2">
   <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link text-white active bg-gradient-primary" href="sessions.html">
-          <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">table_view</i>
-          </div>
-          <span class="nav-link-text ms-1">Sessions</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white " href="billing.html">
-          <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">receipt_long</i>
-          </div>
-          <span class="nav-link-text ms-1">Billing</span>
-        </a>
       </li>
       <li class="nav-item mt-3">
         <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white " href="profile.html">
+        <a class="nav-link text-white " href="profile.jsp?email=<%= email %>">
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="material-icons opacity-10">person</i>
           </div>
           <span class="nav-link-text ms-1">Profile</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white " href="sign-in.html">
-          <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">login</i>
-          </div>
-          <span class="nav-link-text ms-1">Sign In</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white " href="sign-up.html">
-          <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">assignment</i>
-          </div>
-          <span class="nav-link-text ms-1">Sign Up</span>
         </a>
       </li>
     </ul>
@@ -111,9 +95,9 @@
           </div>
         </div>
         <ul class="navbar-nav  justify-content-end">
-          <li class="nav-item d-flex align-items-center">
-            <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder?ref=navbar-material-dashboard">Online Builder</a>
-          </li>
+          <div class="card-footer text-right p-3">
+            <a type="button" class="btn btn-primary btn-sm mb-0" href="newSession.jsp?email=<%= encodedEmail %>">Create new session</a>
+          </div>
           <li class="mt-2">
             <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star creativetimofficial/material-dashboard on GitHub">Star</a>
           </li>
@@ -140,7 +124,7 @@
                 <a class="dropdown-item border-radius-md" href="javascript:;">
                   <div class="d-flex py-1">
                     <div class="my-auto">
-                      <img src="/resources/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
+                      <img src="${pageContext.request.contextPath}/resources/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="text-sm font-weight-normal mb-1">
@@ -158,7 +142,7 @@
                 <a class="dropdown-item border-radius-md" href="javascript:;">
                   <div class="d-flex py-1">
                     <div class="my-auto">
-                      <img src="/resources/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
+                      <img src="${pageContext.request.contextPath}/resources/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="text-sm font-weight-normal mb-1">
@@ -204,12 +188,6 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item d-flex align-items-center">
-            <a href="sign-in.html" class="nav-link text-body font-weight-bold px-0">
-              <i class="fa fa-user me-sm-1"></i>
-              <span class="d-sm-inline d-none">Sign In</span>
-            </a>
-          </li>
         </ul>
       </div>
     </div>
@@ -226,53 +204,109 @@
             </div>
             <div class="row">
               <!-- Session cards go here -->
-              <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
-                <div class="card card-blog card-plain">
+              <%@ page import="CRUD.User_Crud" %>
+              <%@ page import="java.util.List" %>
+              <%@ page import="classes.Session" %>
+              <%@ page import="CRUD.Session_Crud" %>
+              <%@ page import="classes.EmailUtil" %>
+
+              <%List<Session> sessions = User_Crud.getSessions(request.getParameter("email"));
+              int tutorid= User_Crud.getTutorId(request.getParameter("email"));
+              System.out.println("tutorid : "+tutorid);
+              if (sessions.size() == 0)
+              {
+                %>
+                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+                  <div class="card card-blog card-plain">
                   <div class="card-header p-0 mt-n4 mx-3">
                     <a class="d-block shadow-xl border-radius-xl">
-                      <img src="/resources/img/home-decor-1.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
+                      <img src="${pageContext.request.contextPath}/resources/img/home-decor-1.jpg" alt="img-blur-shadow" >
                     </a>
                   </div>
                   <div class="card-body p-3">
-                    <p class="mb-0 text-sm">Project #2</p>
+                    <p class="mb-0 text-sm">No sessions available</p>
                     <a href="javascript:;">
-                      <h5>Modern</h5>
+                      <h5>create a new session</h5>
                     </a>
-                    <p class="mb-4 text-sm">
-                      As Uber works through a huge amount of internal management turmoil.
-                    </p>
-                    <div class="d-flex align-items-center justify-content-between">
-                      <a type="button" class="btn btn-outline-primary btn-sm mb-0" href="studentsList.html">View details</a>
-                      <div class="avatar-group mt-2">
-                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Elena Morison">
-                          <img alt="Image placeholder" src="/resources/img/team-1.jpg">
-                        </a>
-                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ryan Milly">
-                          <img alt="Image placeholder" src="/resources/img/team-2.jpg">
-                        </a>
-                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Nick Daniel">
-                          <img alt="Image placeholder" src="/resources/img/team-3.jpg">
-                        </a>
-                        <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Peterson">
-                          <img alt="Image placeholder" src="/resources/img/team-4.jpg">
-                        </a>
+                    <form action="/CreateSession" method="post">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <a type="submit" class="btn btn-outline-primary btn-sm mb-0" href="newSession.jsp?email=<%= encodedEmail %>">Create new session</a>
                       </div>
+                    </form>
+                  </div>
+                </div>
+                  <%}else
+                  {
+                for (int i = 0; i < sessions.size(); i++) {
+                  Session s = sessions.get(i);
+              %>
+              <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+                  <div class="card card-blog card-plain">
+                  <div class="card-header p-0 mt-n4 mx-3">
+                    <a class="d-block shadow-xl border-radius-xl">
+                      <img src="https://images.unsplash.com/photo-1587691592099-24045742c181?q=80&w=1773&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
+                    </a>
+                  </div>
+                  <div class="card-body p-3">
+                    <p class="mb-0 text-sm">Session #<%= (i + 1) %></p>
+                    <a href="javascript:;">
+                      <h5><%=s.getSubject().toString()%></h5>
+                    </a>
+                    <a href="javascript:;">
+                      <h5>rate :<%=s.getRate()%></h5>
+                    </a>
+                    <a href="javascript:;">
+                      <h5>NbPlaces :<%=s.getNbPlaces()%></h5>
+                    </a>
+                    <a href="javascript:;">
+                      <h5>date :<%=s.getSessionDate()%></h5>
+                    </a>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <% application.setAttribute("idsession",Session_Crud.getSessionId(s.getSubject().toString(),s.getRate(),s.getSessionDate(),s.getNbPlaces(),tutorid));%>
+                      <a type="button" class="btn btn-outline-primary btn-sm mb-0" href="studentsList.jsp?email=<%= encodedEmail %>&sessionid=<%=Session_Crud.getSessionId(s.getSubject().toString(),s.getRate(),s.getSessionDate(),s.getNbPlaces(),tutorid)%>">View details</a>
+                      <form action="/DeleteSession" method="post">
 
+                        <input type="hidden" name="sessionid" value="<%=Session_Crud.getSessionId(s.getSubject().toString(), s.getRate(), s.getSessionDate(), s.getNbPlaces(), tutorid)%>" />
+                        <input type="hidden" name="email" value="<%= encodedEmail %>">
+                        <button type="submit" class="btn btn-outline-primary btn-sm mb-0" href="newSession.jsp?email=<%= encodedEmail %>">Delete</button>
+                      </form>
+                    </div>
+                    <% application.setAttribute("idsession",Session_Crud.getSessionId(s.getSubject().toString(), s.getRate(), s.getSessionDate(), s.getNbPlaces(), tutorid));%>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <form action="/UpdateSession" method="post">
+                        <input type="hidden" name="id" value="<%=Session_Crud.getSessionId(s.getSubject().toString(), s.getRate(), s.getSessionDate(), s.getNbPlaces(), tutorid)%>" />
+                        <input type="hidden" name="subject" value="<%= s.getSubject().toString() %>">
+                        <input type="hidden" name="rate" value="<%= s.getRate() %>">
+                        <input type="hidden" name="date" value="<%= s.getSessionDate()%>">
+                        <input type="hidden" name="NBplaces" value="<%= s.getNbPlaces() %>">
+                        <input type="hidden" name="email" value="<%= encodedEmail %>">
+                        <a type="submit" class="btn btn-outline-primary btn-sm mb-0" href="UpdateSession.jsp?email=<%= encodedEmail %>">Update</a>
+                      </form>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <% if (s.getNbPlaces() ==0) { %>
+                        Full
+                      <%EmailUtil.sendEmail(request.getParameter("email"), "Session Update", "the session is Full");%>
+                        <% } else { %> Available <%= s.getNbPlaces() %>places
+                        <% } %>
                     </div>
                   </div>
-                  <div class="card-footer text-right p-3">
-                    <a type="button" class="btn btn-primary btn-sm mb-0" href="newSession.jsp?id=<%= URLEncoder.encode(user.getEmail(),"UTF-8") %>">Create new session</a>
-                  </div>
-
                 </div>
               </div>
-              <!-- Repeat for each project -->
+              <% } %>
+                  <% } %>
+
             </div>
+
           </div> <!-- This is the corrected closing tag for the card -->
         </div>
       </div>
+      </div>
     </div>
-  </main>
+    </main>
+    </div>
+    <!--   Core JS Files   -->
+
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
       <i class="material-icons py-2">settings</i>
@@ -348,10 +382,10 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="/resources/js/core/popper.min.js"></script>
-  <script src="/resources/js/core/bootstrap.min.js"></script>
-  <script src="/resources/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="/resources/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/core/popper.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/core/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/plugins/smooth-scrollbar.min.js"></script>
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -364,7 +398,8 @@
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="/resources/js/material-dashboard.min.js?v=3.1.0"></script>
+  <script src="${pageContext.request.contextPath}/resources/js/material-dashboard.min.js?v=3.1.0"></script>
 </body>
 
 </html>
+

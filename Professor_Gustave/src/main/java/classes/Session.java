@@ -25,13 +25,12 @@ public class Session implements Serializable {
     public Session() {
     }
 
-    public  Session(int sessionId, Subject subject, float rate, String sessionDate, int nbPlaces, Waitlist waitlist) {
+    public Session(int sessionId, Subject subject, float rate, String sessionDate, int nbPlaces) {
         this.sessionId = sessionId;
         this.subject = subject;
         this.rate = rate;
         this.sessionDate = sessionDate;
         this.nbPlaces = nbPlaces;
-        this.waitlist = waitlist; // Initialize the Waitlist reference
     }
 
     public boolean addStudent(int studentId) {

@@ -1,7 +1,6 @@
 package interfaces;
 
 import classes.Session;
-import classes.Subject;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -9,7 +8,13 @@ import java.util.List;
 
 public interface TutoringServices extends Remote {
 
-    List<Session> searchSessions(Subject subject) throws RemoteException;
+    public List<Session> getAllSessions() throws RemoteException;
+    List<Session> searchSessions(String subject) throws RemoteException;
 
     boolean bookSession(int sessionId, int studentId) throws RemoteException;
+
+    int getSessionId(String subject, float rate, String sessionDate, int nbPlaces) throws RemoteException;
+
+    int getUserId(String email) throws RemoteException;
+
 }

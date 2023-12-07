@@ -2,6 +2,8 @@ package CRUD;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.List;
+
 import classes.*;
 public class Professor_Crud {
     private static final String SQLITE_CONNECTION_STRING = "jdbc:sqlite:GustaveApp.sqlite";
@@ -51,5 +53,32 @@ public class Professor_Crud {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static List<Session> getSessions(int professorId) {
+        String sql = "SELECT * FROM session WHERE tutorId = ?";
+        List<Session> sessions = null;
+
+        try (Connection conn = DriverManager.getConnection(SQLITE_CONNECTION_STRING);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, professorId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int sessionId = rs.getInt("sessionId");
+                String subject = rs.getString("subject");
+                float rate = rs.getFloat("rate");
+                String sessionDate = rs.getString("sessionDate");
+                int nbPlaces = rs.getInt("nbPlaces");
+                //int tutorId = rs.getInt("professorId");
+
+                Session session = new Session(sessionId, Subject.valueOf(subject), rate, sessionDate, nbPlaces);
+                sessions.add(session);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

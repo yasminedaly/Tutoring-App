@@ -55,16 +55,15 @@ CREATE TABLE SessionStudent (
                                 sessionId INTEGER,
                                 studentId INTEGER,
                                 PRIMARY KEY (sessionId, studentId),
-                                FOREIGN KEY (sessionId) REFERENCES Session(sessionId)
-
+                                FOREIGN KEY (sessionId) REFERENCES Session(sessionId),
+                                FOREIGN KEY (studentId) REFERENCES student(student_id)
 );
 
 CREATE TABLE Waitlist (
-                          waitlistId INTEGER PRIMARY KEY AUTOINCREMENT,
                           sessionId INTEGER,
                           studentId INTEGER,
-                        professorId INTEGER,
+                          PRIMARY KEY (sessionId, studentId),
                           FOREIGN KEY (sessionId) REFERENCES Session(sessionId),
-                            FOREIGN KEY (studentId) REFERENCES Student(student_id)  ,
-                            FOREIGN KEY (professorId) REFERENCES Professor(professor_id)
+                          FOREIGN KEY (studentId) REFERENCES student(student_id)
 );
+

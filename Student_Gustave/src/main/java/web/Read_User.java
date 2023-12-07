@@ -41,17 +41,20 @@ public class Read_User extends HttpServlet {
         try {
             User user = User_Crud.readUserFromDatabase(email, password);
             if (user != null) {
+                // User found, set attribute and forward to profile.jsp
                 request.setAttribute("user", user);
                 request.getRequestDispatcher("profile.jsp").forward(request, response);
-                response.sendRedirect("profile.html");
             } else {
+                // User not found, redirect to sign-in.html
                 response.sendRedirect("sign-in.html");
             }
         } catch (Exception e) {
             e.printStackTrace(); // Log the exception to the console
-           request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
+            // Set error message and forward to an error page
+            request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }
+
 
 }
